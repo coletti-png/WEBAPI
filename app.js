@@ -1,29 +1,20 @@
-const express = require("express"); 
-const app = express(); 
-  
-// Root route of express app 
-app.get("/", (req, res) => { 
-  res.send("Hello Geeks"); 
-}); 
-  
-app.get("/new", (req, res) => { 
-  res.send("welcome to new page"); 
-}); 
-  
-// All the general routes of your 
-// web app are defined above the 
-// default route 
-  
-// Default route 
-app.get("*", (req, res) => { 
-  
-  // Here user can also design an 
-  // error page and render it  
-  res.send("PAGE NOT FOUND"); 
-}); 
-  
-// Server setup 
-app.listen(3000, () => { 
-  console.log( 
-`Server listening on http://localhost:3000`); 
-}); 
+
+const express = require('express');
+const app = express();
+const path = require('path');
+const router = express.Router();
+ 
+router.get('/',function(req,res){
+  res.sendFile(path.join(__dirname+'/public/index.html'));
+});
+ 
+router.get('/AddToList',function(req,res){
+    res.sendFile(path.join(__dirname+'/public/addtolist.html'));
+  });
+  router.get('/login',function(req,res){
+    res.sendFile(path.join(__dirname+'/public/login.html'));
+  });
+app.use('/', router);
+app.listen(process.env.port || 3000);
+ 
+console.log('Running at Port 3000');

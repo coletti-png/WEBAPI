@@ -3,9 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add to List</title>
+    <title>Add Item Page</title>
 </head>
 <body>
-    <h1>Add to List</h1>
+    <h1>Add Item</h1>
+    <a href="index.html">Back to List</a>
+    <br>
+    <br>
+    <form action="/additem" method="POST">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+        <br>
+        <br>
+       
+        <button type="submit">Add Items</button>
+    </form>
 </body>
 </html>

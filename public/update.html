@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Item</title>
+</head>
+<body>
+    <h1>Update Item</h1>
+    <form id="update-form">
+        <input type="hidden" id="item-id">
+        <label for="item-name">Item Name:</label>
+        <input type="text" id="item-name" required>
+        <button type="submit">Update</button>
+    </form>
+     <button onclick="goBack()">Cancel</button>
+    <script>
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

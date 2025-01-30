@@ -1,0 +1,1 @@
+Using MongoDB I created a database for my favorite items in node.js. Index page includes a list of those items as well as an update and a delete function. Unfortunetly both options don't operate properly. At the bottom of the page you can add items to the list which does works properly.

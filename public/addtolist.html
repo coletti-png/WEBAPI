@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Item Page</title>
+    <title>Add Entry</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Add Item</h1>
-    <a href="index.html">Back to List</a>
-    <br>
-    <br>
-    <form action="/additem" method="POST">
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name">
-        <br>
-        <br>
-       
-        <button type="submit">Add Items</button>
-    </form>
+    <h1>Add a New Entry</h1>
+    
+    <form action="/addfavoritething" method="POST">
+        <label for="favoritething">Favorite Thing</label>
+        <input type="text" name="favoritething" id="favoritething" required>
+      
+        <button type="submit">Add Favorite Thing</button>
+      </form> 
+      <br>     
+      <a href="/favoritethings.html">Back to favorite things</a><br>
 </body>
 </html>

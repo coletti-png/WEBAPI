@@ -7,7 +7,7 @@ require("dotenv").config(); // Load environment variables
 const session = require("express-session");
 
 const bcrypt = require("bcryptjs");
-const FavoriteThings = require("./models/FavoriteThings");
+const FavoriteThings = require("./models/favoritethings");
 const User = require("./models/User");
 
 const app = express();

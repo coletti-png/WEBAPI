@@ -2,17 +2,24 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const path = require("path");
+const exphbs = require("express-handlebars");
+require("dotenv").config(); // Load environment variables
 const session = require("express-session");
+
 const bcrypt = require("bcryptjs");
 const FavoriteThings = require("./models/FavoriteThings");
 const User = require("./models/User");
 
 const app = express();
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 // MongoDB connection setup
 const mongoURI = "mongodb://localhost:27017/crudapp";
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  }) .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.log(err));
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error"));
@@ -20,22 +27,18 @@ db.once("open", () => {
   console.log("Connected to MongoDB Database");
 });
 
-// Middleware to serve static files
-app.use(express.static(path.join(__dirname, "public")));
 
-// Middleware to parse JSON requests
-app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: true }));
-
+// Set Handlebars as the templating engine
+app.engine("handlebars", exphbs.engine());
+app.set("view engine", "handlebars");
+app.set("views", path.join(__dirname, "views"));
+// Set Handlebars as the templating engine
+app.engine("handlebars", exphbs.engine());
+app.set("view engine", "handlebars");
+app.set("views", path.join(__dirname, "views"));
 // Session setup
-app.use(
-  session({
-    secret: "12345",
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false }, // Set to true if using HTTPS
-  })
-);
+app.use( session({
+  secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: true, cookie: { secure: false }, }) );
 
 // Authentication middleware
 function isAuthenticated(req, res, next) {
@@ -168,6 +171,5 @@ app.delete("/deletefavoritething/:id", async (req, res) => {
 });
 
 // Start the server
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+module.exports = app;

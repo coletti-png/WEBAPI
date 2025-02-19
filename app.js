@@ -7,18 +7,18 @@ require("dotenv").config(); // Load environment variables
 const session = require("express-session");
 
 const bcrypt = require("bcryptjs");
-const FavoriteThings = require("./models/favoritethings");
+const FavoriteThings = require("./models/FavoriteThings");
 const User = require("./models/User");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // MongoDB connection setup
-const mongoURI = "mongodb://localhost:27017/crudapp";
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  }) .then(() => console.log("MongoDB connected"))
+})
+  .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
 const db = mongoose.connection;
@@ -37,9 +37,12 @@ app.engine("handlebars", exphbs.engine());
 app.set("view engine", "handlebars");
 app.set("views", path.join(__dirname, "views"));
 // Session setup
-app.use( session({
-  secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: true, cookie: { secure: false }, }) );
-
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }, // Set to true if using HTTPS
+}));
 // Authentication middleware
 function isAuthenticated(req, res, next) {
   if (req.session.user) {

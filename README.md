@@ -1,1 +1,1 @@
-To start register your own account so you have a login. From there login to your account and you will be sent to the users page where you can go to favorite things by a link. This link will allow you to delete, update,and add to the list. Each page has a back link to the previous page. If you log out then you will be directed to the register page where you can either register or login.
+Working on creating connection to a server.

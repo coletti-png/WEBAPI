@@ -23,14 +23,7 @@ db.once("open", () => {
 
 
 
-// Set Handlebars as the templating engine
-app.engine("handlebars", exphbs.engine());
-app.set("view engine", "handlebars");
-app.set("views", path.join(__dirname, "views"));
-// Set Handlebars as the templating engine
-app.engine("handlebars", exphbs.engine());
-app.set("view engine", "handlebars");
-app.set("views", path.join(__dirname, "views"));
+
 // Session setup
 app.use(express.static(path.join(__dirname, "public")));
 

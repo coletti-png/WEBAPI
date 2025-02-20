@@ -1,31 +1,27 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const path = require("path");
+const session = require("express-session");
+const bcrypt = require("bcryptjs");
 const FavoriteThings = require("./models/favoritethings");
 const User = require("./models/User");
-const exphbs = require("express-handlebars");
-require("dotenv").config(); // Load environment variables
-const session = require("express-session");
-
-const bcrypt = require("bcryptjs");
+const { register } = require("module");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // MongoDB connection setup
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.log(err));
+const mongoURI = "mongodb://localhost:27017/crudapp";
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error"));
 db.once("open", () => {
   console.log("Connected to MongoDB Database");
 });
+
 
 
 // Set Handlebars as the templating engine
@@ -37,12 +33,20 @@ app.engine("handlebars", exphbs.engine());
 app.set("view engine", "handlebars");
 app.set("views", path.join(__dirname, "views"));
 // Session setup
+app.use(express.static(path.join(__dirname, "public")));
+
+// Middleware to parse JSON requests
+app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+
+//sets up the session variable
 app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false }, // Set to true if using HTTPS
+
+  resave:false,
+  saveUninitialized:false,
+  cookie:{secure:false}// Set to true is using https
 }));
+
 // Authentication middleware
 function isAuthenticated(req, res, next) {
   if (req.session.user) {

@@ -141,7 +141,7 @@ app.post("/addfavoritething", async (req, res) => {
   try {
     const newThing = new FavoriteThings(req.body);
     await newThing.save();
-    res.redirect("/users.html");
+    res.redirect("/favoritethings.html");
   } catch (error) {
     res.status(500).json({ error: "Failed to add new favorite thing." });
   }

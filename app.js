@@ -13,11 +13,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // MongoDB connection setup
-const mongoURI = "mongodb://localhost:27017/crudapp";
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+const mongoURI = process.env.MONGO_URI;
+mongoose.connect(mongoURI);
 
 const db = mongoose.connection;
-db.on("error", console.error.bind(console, "MongoDB connection error"));
 db.once("open", () => {
   console.log("Connected to MongoDB Database");
 });

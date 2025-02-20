@@ -2,13 +2,13 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const path = require("path");
+const FavoriteThings = require("./models/FavoriteThings");
+const User = require("./models/User");
 const exphbs = require("express-handlebars");
 require("dotenv").config(); // Load environment variables
 const session = require("express-session");
 
 const bcrypt = require("bcryptjs");
-const FavoriteThings = require("./models/FavoriteThings");
-const User = require("./models/User");
 
 const app = express();
 const PORT = process.env.PORT || 3000;

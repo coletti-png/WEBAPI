@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const path = require("path");
-const FavoriteThings = require("./models/FavoriteThings");
+const FavoriteThings = require("./models/favoritethings");
 const User = require("./models/User");
 const exphbs = require("express-handlebars");
 require("dotenv").config(); // Load environment variables

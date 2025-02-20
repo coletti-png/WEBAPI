@@ -12,13 +12,15 @@ const { register } = require("module");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// MongoDB connection setup
-const mongoURI = process.env.MONGO_URI;
+//MongoDB connection setup
+const mongoURI = process.env.MONGODB_URI;//"mongodb://localhost:27017/crudapp";
 mongoose.connect(mongoURI);
 
 const db = mongoose.connection;
-db.once("open", () => {
-  console.log("Connected to MongoDB Database");
+
+db.on("error", console.error.bind(console, "MongoDB connection error"));
+db.once("open", ()=>{
+    console.log("Connected to MongoDB Database");
 });
 
 

@@ -33,7 +33,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //sets up the session variable
 app.use(session({
-
+  secret:process.env.SESSION_SECRET,
   resave:false,
   saveUninitialized:false,
   cookie:{secure:false}// Set to true is using https
